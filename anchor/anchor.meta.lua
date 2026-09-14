@@ -58,8 +58,10 @@ function web_file_status(path) end
 ---@param width number
 ---@param height number
 ---@param pixel_data_string any
+---@param filter? string
+---@param wrap? string
 ---@return any
-function texture_create(width, height, pixel_data_string) end
+function texture_create(width, height, pixel_data_string, filter, wrap) end
 
 --- free a texture
 ---@param tex lightuserdata|table
@@ -1402,6 +1404,18 @@ function layer3_create(name, w, h, filter) end
 ---@return any
 function layer3_get_layer(l3) end
 
+---@param l3 lightuserdata
+---@param index integer
+---@param x number
+---@param y number
+---@param z number
+---@param color integer
+---@param radius number
+function layer3_set_point_light(l3, index, x, y, z, color, radius) end
+
+---@param l3 lightuserdata
+function layer3_clear_lights(l3) end
+
 --- mesh `vertices` is a flat array of floats, 8 per vertex: x,y,z, nx,ny,nz, u,v. Non-indexed triangles, so the length must be a multiple of 24. Under headless this returns 0 — a valid-looking handle that is never `alive`, so every downstream draw no-ops instead of forcing nil guards in game code.
 ---@param vertices number[]
 ---@return any
@@ -2142,4 +2156,3 @@ function process_poll(id) end
 --- SIGTERM the process group (posix_spawn used SETSID).
 ---@param id any
 function process_kill(id) end
-

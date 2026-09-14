@@ -422,7 +422,7 @@ end
 
 --- Queue a post-process pass; runs when this layer's layer_render executes.
 ---@param lyr Layer
----@param shader lightuserdata
+---@param shader integer
 function layer_apply_shader(lyr, shader)
   eng.apply_shader(lyr_handle(lyr), shader)
 end
