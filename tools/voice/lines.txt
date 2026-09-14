@@ -1,0 +1,3 @@
+# id|text   one line per voice clip; ids become assets/voice/<id>.ogg. Lines starting with # are ignored.
+# The construct speaks only when aimed at a creature and asked. Keep lines short: a name, a habit, a warning.
+test_drake|Oh! A cave drake. Nocturnal. Sleeps in clusters near warm rock. Wakes to bright light. Please do not wake it.
