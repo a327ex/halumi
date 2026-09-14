@@ -1,50 +1,26 @@
---[[
-  halumi — an Anchor 3 game.
-
-  Scaffolded by `anchor new`. Read Anchor/engine/docs/SURFACE.md first: how a
-  game is run, driven, recorded and reloaded.
-
-  THIS FILE HOLDS DEFINITIONS ONLY, so saving it re-runs them in the live
-  globals — functions rebind, constants go live, and the state boot.lua made
-  survives. One-time work (layers, fonts, binds, state) belongs in boot.lua,
-  which the init table names below and which never reloads.
-
-  Run it with run.bat (the owner's). Drive it with:
-    anchor drive start .
-    anchor drive eval  . 'engine_step(60) return box_x'
-    anchor drive stop  .
-]]
-
-require('anchor')({
-  width  = 480,
-  height = 270,
-  scale  = 2,
-  title  = 'halumi',
-  filter = 'rough',
-  boot   = {'boot.lua'},
-})
-
--- Definitions: a saved colour or constant is live on the next frame.
-COL_BG  = color(26, 26, 26)
-COL_BOX = color(230, 165, 80)
-
-BOX_SIZE  = 32
-BOX_SPEED = 120        -- pixels per second
-
+require('anchor')({width=960,height=540,scale=1,title='halumi',filter='rough',boot={'boot.lua'}})
+require('common')
+require('art')
+require('world')
+require('controller')
+require('verification')
 function update(dt)
   sync_engine_globals()
-  if input_pressed('quit') then engine_quit() end
-  box_x = (box_x + BOX_SPEED*dt) % (width + BOX_SIZE)
+  clock_time=clock_time+dt
+  if input_pressed('release') then pointer_locked=not pointer_locked mouse_set_grabbed(pointer_locked) end
+  player_update(dt)
   process_destroy_queue()
 end
-
 function draw()
-  -- rectangles and text draw from the TOP-LEFT; images and circles centre on (x, y)
-  layer_rectangle(game_layer, 0, 0, width, height, COL_BG())
-  layer_rectangle(game_layer, box_x - BOX_SIZE, math.floor((height - BOX_SIZE)/2),
-                  BOX_SIZE, BOX_SIZE, COL_BOX())
-  layer_render(game_layer)
-  layer_draw(game_layer)
+  player_camera() world_lighting() world_draw()
+  layer3_sphere(scene,-3,0.5,1,0.5,rgba8(192,153,109))
+  layer3_box(scene,-3,0.95,1,0.7,0.2,0.7,0,0,0,1,rgba8(149,108,82))
+  scene_finish()
+  hud_text('HALUMI',24,20)
+  hud_text('WASD  float     mouse  look     Esc  release cursor',24,508)
+  if player.climbing then hud_text('Rising along the stone',24,476,GOLD) end
+  if player.sinking>0 then hud_text('DEEP WATER / lift failing. Return to the pale shallows.',120,440,CORAL) end
+  layer_line(ui,474,270,486,270,1,CREAM) layer_line(ui,480,264,480,276,1,CREAM)
+  layer_render(ui) layer_draw(ui)
 end
-
-require('boot')   -- LAST line: one-time work, after every definition exists
+require('boot')
