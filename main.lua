@@ -11,6 +11,7 @@ require('tools_game')
 require('camera_game')
 function update(dt)
   sync_engine_globals()
+  if input_pressed('release') then pointer_locked=not pointer_locked mouse_set_grabbed(pointer_locked) end
   if run.pending then return end
   if run.mode~='exploring' then
     if input_pressed('restart') then run_restart() end
@@ -19,7 +20,6 @@ function update(dt)
     return
   end
   clock_time=clock_time+dt
-  if input_pressed('release') then pointer_locked=not pointer_locked mouse_set_grabbed(pointer_locked) end
   player_update(dt)
   tools_update(dt) creatures_update(dt)
   run_update(dt)

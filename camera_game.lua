@@ -31,6 +31,7 @@ function run_restart()
   player_reset() creatures_reset()
   stimuli={} projectiles={} food_left=5 lamp_on=false flash_light=0 pending_attack=false pending_film_loss=0
   player.glare=0 dialogue_until=0 clock_time=0
+  pointer_locked=true mouse_set_grabbed(true)
   if voice_handle then sound_handle_stop(voice_handle) voice_handle=nil end
 end
 function run_notice(text) run.notice=text run.notice_until=clock_time+3 end
@@ -93,6 +94,7 @@ end
 function run_bank()
   if run.mode~='exploring' then return end
   run.mode='results' run.total=0 run.best={}
+  pointer_locked=false mouse_set_grabbed(false)
   for i,p in ipairs(run.photos) do
     photo_grade(p)
     for species,s in pairs(p.scores) do
@@ -107,6 +109,7 @@ function run_die(cause)
   album_manifest('lost')
   run.lost_count=#run.photos run.photos={} run.total=0 run.best={} run.pending=nil
   run.mode='dead' run.cause=cause
+  pointer_locked=false mouse_set_grabbed(false)
 end
 function run_update(dt)
   run.cooldown=math.max(0,run.cooldown-dt) run.invulnerable=math.max(0,run.invulnerable-dt) run.hurt=math.max(0,run.hurt-dt)
