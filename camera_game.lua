@@ -121,8 +121,8 @@ function run_update(dt)
     if lost>0 then run_notice('A Spoolmite ate '..lost..' unused leaves.') end
   end
   if player.sinking>1.5 or player.y< -3 then run_die('Your lift failed over deep water.') return end
-  if player.z<18 then run.entered=true end
-  if run.entered and player.z>23 then run_bank() return end
+  if player.z<18 or math.abs(player.x)>3 then run.entered=true end
+  if run.entered and player.z>23 and math.abs(player.x)<2.3 and player.y<1 then run_bank() return end
   if input_pressed('flash') then run.flash=not run.flash end
   if input_pressed('shutter') then photo_request() end
 end
@@ -152,7 +152,7 @@ function camera_hud()
   if player.climbing then hud_text('Rising along the stone',24,453,GOLD,'small') end
   if player.sinking>0 then hud_text('DEEP WATER / LIFT FAILING / return to the pale shallows',150,110,CORAL) end
   if clock_time<run.notice_until then hud_text(run.notice,24,430,GOLD,'small') end
-  if run.entered and player.z>19 then hud_text('The entrance / cross the pale threshold to bank your light',145,120,GOLD) end
+  if run.entered and player.z>19 and math.abs(player.x)<2.5 then hud_text('The entrance / cross the pale threshold to bank your light',145,120,GOLD) end
   dialogue_draw()
 end
 function results_draw()

@@ -10,6 +10,8 @@ for _,h in ipairs(world.hulls) do
 end
 agent_walk_to(0,20) agent_walk_to(8,20) agent_walk_to(17,20)
 assert(world_region(player.x,player.z)=='cistern')
+agent_walk_to(19,24.6)
+assert(run.mode=='exploring','the cistern incorrectly acts as another exit')
 agent_walk_to(19,17) agent_walk_to(19,14.8)
 assert(player.y>0.6,'built steps are not traversable')
 agent_walk_to(19,17) agent_walk_to(17,20) agent_walk_to(8,20) agent_walk_to(0,20)

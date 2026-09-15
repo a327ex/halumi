@@ -16,6 +16,7 @@ for _,i in ipairs({1,6,7,10,13}) do
     c.state='folding' engine_step(1) engine_snapshot(folder..'/veilfin-folded.png')
   end
   c.x,c.y,c.z=c.home.x,c.home.y,c.home.z
+  c.feet=nil
 end
 run_restart()
 return folder
