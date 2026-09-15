@@ -1,6 +1,7 @@
 require('anchor')({width=960,height=540,scale=1,title='halumi',filter='rough',boot={'boot.lua'}})
 require('common')
 require('art')
+require('geometry')
 require('world')
 require('controller')
 require('verification')

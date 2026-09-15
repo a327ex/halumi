@@ -1,5 +1,5 @@
 assert(engine_state().agent and not engine_visible())
-player_reset() creatures_reset()
+run_restart()
 local counts={} local attackers,unknown=0,0
 for _,c in ipairs(creatures) do
   counts[c.species]=(counts[c.species] or 0)+1
@@ -26,5 +26,5 @@ for _,c in ipairs(creatures) do
   creatures_flash(c.x,c.y+1,c.z)
   assert(c.until_time>clock_time,'species has no flash reaction: '..c.species)
 end
-player_reset() creatures_reset() stimuli={} projectiles={}
+run_restart()
 return 'M2 PASS: 13 creatures, 5 species, 1 attacker, 1 unknown; consultation, thrown food and all flash reactions; 3 snapshots'

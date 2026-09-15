@@ -37,14 +37,7 @@ end
 function run_notice(text) run.notice=text run.notice_until=clock_time+3 end
 function photo_exposure(c,flash)
   if flash then return 1 end
-  local light=0.12
-  for _,p in ipairs(world.lamps) do
-    local dx,dy,dz=p[1]-c.x,p[2]-(c.y+0.5),p[3]-c.z
-    local d=math.sqrt(dx*dx+dy*dy+dz*dz) local t=limit(d/p[5],0,1)
-    light=light+(1-t*t*(3-2*t))*math.max(0,dy/math.max(0.1,d))*0.65
-  end
-  if lamp_on and distance2(c,player)<7 and subject_aim_dot(c)>0.6 then light=light+0.4 end
-  return limit(light,0.12,1)
+  return world_exposure(c)
 end
 function photo_request()
   if run.mode~='exploring' or run.pending or run.cooldown>0 then return false end

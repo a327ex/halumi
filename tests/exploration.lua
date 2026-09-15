@@ -2,7 +2,7 @@ assert(engine_state().agent and not engine_visible())
 run_restart() engine_step(20)
 agent_walk_to(0,8) agent_look_at(-2,0.7,-1)
 assert(not subject_project(creatures[13]),'unknown visible through alcove screen')
-agent_walk_to(10,7) agent_walk_to(12,-11)
+agent_walk_to(10,7) agent_walk_to(12,-11) agent_walk_to(12,-27)
 local unknown=creatures[13]
 agent_look_at(unknown.x,unknown.y+0.65,unknown.z)
 agent_tap('q')

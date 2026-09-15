@@ -6,11 +6,11 @@ SPECIES={
   veilfin={name='Undescribed specimen',height=1.1,radius=0.6,value=280,rarity=3,relation='watches Spoolmites and echoes Glarebell pulses',color=0xc8dbcfff,unknown=true},
 }
 SPAWNS={
-  {'cupcap',-3,0,1},{'cupcap',-1,0,0},{'cupcap',-3,0,-3},{'cupcap',0,0,-6},{'cupcap',5.5,0,2},
+  {'cupcap',-3,0,1},{'cupcap',-1,0,0},{'cupcap',-3,0,-3},{'cupcap',0,0,-6},{'cupcap',-17,0,14},
   {'slatejaw',-9.6,3.2,1},
-  {'spoolmite',-6.5,0,4},{'spoolmite',-2,0,-2},{'spoolmite',10,0,-12},
-  {'glarebell',-6.8,0,1},{'glarebell',-1,0,-5},{'glarebell',11,0,-13},
-  {'veilfin',8.9,0,-13.5},
+  {'spoolmite',18,0,20},{'spoolmite',-18,0,16},{'spoolmite',10,0,-28.5},
+  {'glarebell',-6.8,0,1},{'glarebell',-18,0,13},{'glarebell',11,0,-30},
+  {'veilfin',8.9,0,-30.5},
 }
 function creature_state(c,state,duration)
   if c.state~=state then c.state=state c.since=clock_time end
