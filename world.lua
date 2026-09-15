@@ -138,6 +138,13 @@ function world_light_list()
   if flash_light>0 then local n=math.floor(255*limit(flash_light/0.18,0,1))
     lamps[#lamps+1]={x,y,z,rgba8(n,n,n),18,'flash'}
   end
+  for _,c in ipairs(creatures or {}) do
+    if c.species=='glarebell' then
+      lamps[#lamps+1]={c.x,c.y+1.2,c.z,c.state=='dazzling' and 0xd9e7afff or 0x667949ff,c.state=='dazzling' and 4 or 2.3,'creature'}
+    elseif c.species=='slatejaw' and c.state=='warning' then
+      lamps[#lamps+1]={c.x+math.sin(c.yaw)*0.8,c.y+0.7,c.z+math.cos(c.yaw)*0.8,0xb59b54ff,2.5,'creature'}
+    end
+  end
   return lamps
 end
 function world_lighting()

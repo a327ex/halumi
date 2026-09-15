@@ -52,6 +52,7 @@ function photo_request()
   end
   p.path=run.folder..string.format('/plate-%02d.png',#run.photos+1)
   run.film=run.film-1 run.pending=p run.cooldown=0.55
+  sound_emit('shutter',0.42,1)
   if run.flash then flash_light=0.18 end
   return true
 end

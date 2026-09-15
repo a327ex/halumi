@@ -29,6 +29,8 @@ end
 function creatures_reset()
   for _,c in ipairs(creatures) do
     c.x,c.y,c.z=c.home.x,c.home.y,c.home.z c.until_time=0 c.state='resting' c.cooldown=0 c.target=nil
+    c.feet=nil c.yaw=c.id c.visual_yaw=c.id c.phase=c.id*0.7 c.since=0 c.pulse=0
+    c.next_call=c.id+3 c.last_call_state=nil
     physics3_set_position(c.body,c.x,c.y+0.5,c.z)
   end
 end
@@ -151,5 +153,7 @@ function creatures_update(dt)
       if c.cooldown<=0 then stimuli[#stimuli+1]={kind='noise',x=c.x,z=c.z,life=3,source=c.id} c.cooldown=5 end
     end
     physics3_set_position(c.body,c.x,c.y+SPECIES[c.species].height*0.5,c.z)
+    models_update(c,dt)
+    sound_creature(c)
   end
 end
