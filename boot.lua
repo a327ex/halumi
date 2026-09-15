@@ -1,6 +1,5 @@
 -- One-time resources and persistent state. Never reloaded.
 scene=layer3_new('cave',320,180,'rough')
-screen_layer=layer_new('screen')
 ui=layer_new('ui')
 font_register('main','assets/monogram.ttf',24,'rough')
 font_register('small','assets/monogram.ttf',20,'rough')
@@ -15,4 +14,5 @@ physics3_enable_collision('stone','player') physics3_enable_collision('stone','c
 physics3_enable_collision('creature','player')
 art_boot() world_boot() player_boot()
 models_boot() creatures_boot() tools_boot()
+camera_boot()
 mouse_set_grabbed(true)

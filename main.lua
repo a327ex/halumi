@@ -8,26 +8,32 @@ require('creatures')
 require('subjects')
 require('models')
 require('tools_game')
+require('camera_game')
 function update(dt)
   sync_engine_globals()
+  if run.pending then return end
+  if run.mode~='exploring' then
+    if input_pressed('restart') then run_restart() end
+    if input_pressed('next_photo') then run.selected=math.min(#run.photos,run.selected+1) end
+    if input_pressed('prev_photo') then run.selected=math.max(1,run.selected-1) end
+    return
+  end
   clock_time=clock_time+dt
   if input_pressed('release') then pointer_locked=not pointer_locked mouse_set_grabbed(pointer_locked) end
   player_update(dt)
   tools_update(dt) creatures_update(dt)
+  run_update(dt)
   process_destroy_queue()
 end
 function draw()
+  if run.mode~='exploring' then results_draw() return end
   player_camera() world_lighting() world_draw()
   for _,c in ipairs(creatures) do creature_draw(c) end
-  tools_draw() construct_draw()
+  tools_draw()
+  if not run.pending then construct_draw() end
   scene_finish()
-  hud_text('HALUMI',24,20)
-  if player.glare>0 then layer_rectangle(ui,0,0,960,540,rgba8(222,232,213,math.floor(player.glare*160))) end
-  hud_text('WASD move   Q consult   E pebble   G food   L light   Esc cursor',24,508,CREAM,'small')
-  hud_text('Food '..food_left..' / light '..(lamp_on and 'on' or 'off'),24,474,GOLD,'small')
-  dialogue_draw()
-  if player.climbing then hud_text('Rising along the stone',24,476,GOLD) end
-  if player.sinking>0 then hud_text('DEEP WATER / lift failing. Return to the pale shallows.',120,440,CORAL) end
+  if run.pending then photo_capture() end
+  camera_hud()
   layer_line(ui,474,270,486,270,1,CREAM) layer_line(ui,480,264,480,276,1,CREAM)
   layer_render(ui) layer_draw(ui)
 end

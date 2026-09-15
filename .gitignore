@@ -6,3 +6,5 @@ dist/
 *.fxbak
 tools/__pycache__/
 tools/voice/.tmp/
+albums/*
+!albums/.gitkeep
