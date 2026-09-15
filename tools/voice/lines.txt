@@ -1,3 +1,7 @@
 # id|text   one line per voice clip; ids become assets/voice/<id>.ogg. Lines starting with # are ignored.
 # The construct speaks only when aimed at a creature and asked. Keep lines short: a name, a habit, a warning.
-test_drake|Oh! A cave drake. Nocturnal. Sleeps in clusters near warm rock. Wakes to bright light. Please do not wake it.
+cupcap|Cupcap. A solemn little grazer. It carries Glarebell pollen on its cap. The sleeping ones have not noticed the Slatejaw.
+slatejaw|Slatejaw. It opens its jaws before it lunges. Keep a steady light on it, or give it something else to investigate. Three mistakes would be quite enough.
+spoolmite|Spoolmite. It follows Cupcaps and eats the coating off fixed-light leaves. Your unused film also qualifies. A little food may improve its manners.
+glarebell|Glarebell. Cupcaps spread its pollen. Its glare draws the Slatejaw. Look away, and let the light close it. Flashing it is an invitation.
+veilfin|I... do not have an entry for this one.

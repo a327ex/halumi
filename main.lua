@@ -4,20 +4,28 @@ require('art')
 require('world')
 require('controller')
 require('verification')
+require('creatures')
+require('subjects')
+require('models')
+require('tools_game')
 function update(dt)
   sync_engine_globals()
   clock_time=clock_time+dt
   if input_pressed('release') then pointer_locked=not pointer_locked mouse_set_grabbed(pointer_locked) end
   player_update(dt)
+  tools_update(dt) creatures_update(dt)
   process_destroy_queue()
 end
 function draw()
   player_camera() world_lighting() world_draw()
-  layer3_sphere(scene,-3,0.5,1,0.5,rgba8(192,153,109))
-  layer3_box(scene,-3,0.95,1,0.7,0.2,0.7,0,0,0,1,rgba8(149,108,82))
+  for _,c in ipairs(creatures) do creature_draw(c) end
+  tools_draw() construct_draw()
   scene_finish()
   hud_text('HALUMI',24,20)
-  hud_text('WASD  float     mouse  look     Esc  release cursor',24,508)
+  if player.glare>0 then layer_rectangle(ui,0,0,960,540,rgba8(222,232,213,math.floor(player.glare*160))) end
+  hud_text('WASD move   Q consult   E pebble   G food   L light   Esc cursor',24,508,CREAM,'small')
+  hud_text('Food '..food_left..' / light '..(lamp_on and 'on' or 'off'),24,474,GOLD,'small')
+  dialogue_draw()
   if player.climbing then hud_text('Rising along the stone',24,476,GOLD) end
   if player.sinking>0 then hud_text('DEEP WATER / lift failing. Return to the pale shallows.',120,440,CORAL) end
   layer_line(ui,474,270,486,270,1,CREAM) layer_line(ui,480,264,480,276,1,CREAM)

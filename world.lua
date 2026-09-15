@@ -37,6 +37,10 @@ function world_ground(x,z,from_y) return physics3_raycast(x,from_y or 18,z,x,-10
 function world_lighting()
   layer3_set_light(scene,0,1,0,0.12) layer3_clear_lights(scene.handle)
   local lamps={} for _,v in ipairs(world.lamps) do lamps[#lamps+1]=v end
+  if lamp_on then
+    local x,y,z=eye_position() local dx,dy,dz=aim_vector()
+    lamps[#lamps+1]={x+dx*2,y+dy*2,z+dz*2,0xffe4aeff,7}
+  end
   if flash_light and flash_light>0 then
     local x,y,z=eye_position() local n=math.floor(255*limit(flash_light/0.18,0,1))
     lamps[#lamps+1]={x,y,z,rgba8(n,n,n),18}
