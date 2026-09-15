@@ -73,6 +73,7 @@ function creatures_update(dt)
     c.cooldown=math.max(0,c.cooldown-dt) c.speed=0
     local dist=math.sqrt((c.x-player.x)^2+(c.z-player.z)^2+(c.y-player.y)^2)
     local see=dist<9 and creature_los(c,eye_position())
+    if c.until_time<=clock_time then c.target=nil end
     local illuminated=lamp_on and dist<7 and see and subject_aim_dot(c)>0.6
     if illuminated and c.species=='slatejaw' then
       c.target={x=c.home.x-0.6,z=c.home.z-3} creature_state(c,'sheltering',1.8)

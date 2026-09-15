@@ -1,4 +1,5 @@
 function models_boot()
+  local body={} mesh3_sphere_blob(body,0,0,0,0.5,10,6) body_mesh=mesh3_create(body)
   face_meshes={}
   for id,s in pairs(SPECIES) do
     local texture=pixel_texture(16,16,function(x,y)

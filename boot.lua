@@ -14,4 +14,5 @@ physics3_register_tag('stone') physics3_register_tag('player') physics3_register
 physics3_enable_collision('stone','player') physics3_enable_collision('stone','creature')
 physics3_enable_collision('creature','player')
 art_boot() world_boot() player_boot()
+models_boot() creatures_boot() tools_boot()
 mouse_set_grabbed(true)
