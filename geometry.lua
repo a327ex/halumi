@@ -109,7 +109,7 @@ function dressed_wall(name,x,y,z,w,h,d)
         a={x+side*w/2,py-ph/2,z+along-pw/2} b={x+side*w/2,py-ph/2,z+along+pw/2}
         c={x+side*w/2,py+ph/2,z+along+pw/2} e={x+side*w/2,py+ph/2,z+along-pw/2} n={side,0,0}
       end
-      geo_triangle(world.geo.masonry,a,b,c,n) geo_triangle(world.geo.masonry,a,c,e,n)
+      mesh3_quad(world.geo.masonry,a[1],a[2],a[3],b[1],b[2],b[3],c[1],c[2],c[3],e[1],e[2],e[3],n[1],n[2],n[3],0,0,1,1)
     end
   end end
 end
