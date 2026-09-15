@@ -10,8 +10,10 @@ require('subjects')
 require('models')
 require('tools_game')
 require('camera_game')
+require('soundscape')
 function update(dt)
   sync_engine_globals()
+  soundscape_update(dt)
   if input_pressed('release') then pointer_locked=not pointer_locked mouse_set_grabbed(pointer_locked) end
   if run.pending then return end
   if run.mode~='exploring' then

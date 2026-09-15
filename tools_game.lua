@@ -30,6 +30,7 @@ function tools_update(dt)
   if input_pressed('consult') then
     local c=aimed_subject()
     if c then
+      sound_emit('construct_chime',0.22,1)
       dialogue=VOICE_LINES[c.species] dialogue_until=clock_time+11
       if voice_handle then sound_handle_stop(voice_handle) end
       if voices[c.species] then voice_handle=sound_play_handle(voices[c.species],0.8,1) end
@@ -40,6 +41,7 @@ function tools_update(dt)
     local x,y,z=p.x+p.vx*dt,p.y+p.vy*dt,p.z+p.vz*dt
     local hit=physics3_raycast(p.x,p.y,p.z,x,y,z,{'stone'})
     if hit or p.life>2 then
+      sound_emit(p.kind=='food' and 'food_impact' or 'pebble_impact',0.3,1)
       stimuli[#stimuli+1]={kind=p.kind,x=hit and hit.point_x or x,z=hit and hit.point_z or z,life=p.kind=='food' and 12 or 6}
       table.remove(projectiles,i)
     else p.x,p.y,p.z=x,y,z end

@@ -1,6 +1,7 @@
 # halumi
 
-First-person fixed-light photography in an authored cave. Current batch: M1-M3.
+First-person fixed-light photography in a built sanctuary reclaimed by a cave.
+Current batch: M1-M4, with placeholder non-voice sounds awaiting owner selection.
 The entrance's pale threshold is also the exit. Only extracted plates pay;
 death loses the run. The construct speaks only when consulted.
 
@@ -32,11 +33,13 @@ anchor drive start halumi
 anchor drive eval halumi --file halumi/tests/smoke.lua
 anchor drive eval halumi --file halumi/tests/hazards.lua
 anchor drive eval halumi --file halumi/tests/exploration.lua
+anchor drive eval halumi --file halumi/tests/geometry.lua
+anchor drive eval halumi --file halumi/tests/sound.lua
 anchor drive stop halumi
 ```
 
-Smoke follows a keyboard route, uses food and light, shoots three plates,
-climbs to the vantage and returns to the entrance. The other checks isolate
+Smoke follows a keyboard route through the dark archive, uses food and light,
+shoots three plates, climbs to the vantage and returns to the entrance. The other checks isolate
 damage/theft boundaries and the alcove. M1/M2 fixtures also remain at their
 milestone commits. Feel is for the owner to assess.
 
@@ -53,5 +56,8 @@ definitions and reload on save. `controller.lua` implements the kinematic
 capsule using static ray probes; `world.lua` owns the blockout. `creatures.lua`
 owns state and relationships; `models.lua` builds poses from shared primitives.
 `subjects.lua` is shared by the camera and construct. `camera_game.lua` owns
-film, photo metadata, extraction and grading. M4 art and non-voice sound polish
-are still pending. Details and verification evidence: `reference/milestones.md`.
+film, photo metadata, extraction and grading. `geometry.lua` emits convex render
+faces and collision hulls from shared vertices. The western archive, eastern
+cistern and northern gallery branch away from the sunlit lake. `soundscape.lua`
+routes sound IDs; `reference/sounds.md` lists the placeholders to replace.
+Details and verification evidence: `reference/milestones.md` and `reference/m4.md`.
