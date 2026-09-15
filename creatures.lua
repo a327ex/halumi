@@ -79,7 +79,7 @@ function creatures_update(dt)
       c.target={x=c.home.x-0.6,z=c.home.z-3} creature_state(c,'sheltering',1.8)
     elseif illuminated and c.species=='glarebell' then creature_state(c,'closed',1.2) end
     local stimulus=nil
-    for _,s in ipairs(stimuli) do if distance2(c,s)<(s.kind=='food' and 6 or 10) then stimulus=s end end
+    for _,s in ipairs(stimuli) do if s.source~=c.id and distance2(c,s)<(s.kind=='food' and 6 or 10) then stimulus=s end end
     if c.until_time>clock_time then
       if c.target then creature_move(c,c.target.x,c.target.z,c.state=='startled' and 2.5 or 1.25,dt) end
     elseif stimulus then
@@ -140,8 +140,15 @@ function creatures_update(dt)
       creature_state(c,dist<2 and 'folding' or 'echoing')
       c.x=c.home.x+math.sin(clock_time*0.35)*0.5 c.z=c.home.z+math.cos(clock_time*0.35)*0.45
     end
+    if c.species=='veilfin' then
+      local mite=nearest_creature(c,'spoolmite',6)
+      if mite then c.yaw=math.atan(mite.x-c.x,mite.z-c.z) end
+      local bell=nearest_creature(c,'glarebell',6)
+      c.pulse=bell and (bell.state=='pulsing' or bell.state=='dazzling') and 1 or 0
+    end
     if c.species=='glarebell' and c.state=='dazzling' and see and dist<7 and subject_aim_dot(c)>0.78 then
       player.glare=math.max(player.glare,0.75)
+      if c.cooldown<=0 then stimuli[#stimuli+1]={kind='noise',x=c.x,z=c.z,life=3,source=c.id} c.cooldown=5 end
     end
     physics3_set_position(c.body,c.x,c.y+SPECIES[c.species].height*0.5,c.z)
   end

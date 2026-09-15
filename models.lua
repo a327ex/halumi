@@ -54,7 +54,7 @@ function creature_draw(c)
     layer3_billboard(scene,c.x,c.y+1.22,c.z,open*0.4,open*0.4,c.state=='dazzling' and WHITE or 0xb9dcacff,tex.white,'add')
   else
     local folded=c.state=='folding' and 0.2 or 1
-    local y=1.1+math.sin(t*1.7)*0.14
+    local y=1.1+math.sin(t*1.7)*0.14+(c.pulse or 0)*0.12
     for i=0,3 do model_part(c,'sphere',math.sin(t*2-i)*0.13,y-i*0.12,-i*0.23,0.5-i*0.09,0.6-i*0.1,0.45,col) end
     for _,side in ipairs({-1,1}) do model_part(c,'cone',side*0.2,y-0.1,0,folded*1.1,0.08,0.65,0x719eabff,side*0.3) end
   end
