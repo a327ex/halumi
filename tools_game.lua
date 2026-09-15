@@ -30,7 +30,7 @@ function tools_update(dt)
   if input_pressed('consult') then
     local c=aimed_subject()
     if c then
-      dialogue=VOICE_LINES[c.species] dialogue_until=clock_time+9
+      dialogue=VOICE_LINES[c.species] dialogue_until=clock_time+11
       if voice_handle then sound_handle_stop(voice_handle) end
       if voices[c.species] then voice_handle=sound_play_handle(voices[c.species],0.8,1) end
     end

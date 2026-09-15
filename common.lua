@@ -22,6 +22,7 @@ function eye_position() return player.x,player.y+1.05,player.z end
 function scene_finish()
   layer_reset_effects(scene.layer) layer_apply_shader(scene.layer,palette_shader)
   layer3_render(scene) layer_render(scene.layer,false)
-  layer_draw_into(screen_layer.handle,scene.layer,0,0,960,540)
-  layer_draw(screen_layer)
+  -- Standard composite stretches the fixed-size texture to game resolution
+  -- and is recorded; layer_draw_into is an immediate, unrecorded operation.
+  layer_draw(scene.layer)
 end
