@@ -141,8 +141,10 @@ function creature_draw(c)
     oy,oz=math.sin(wind)*0.38,math.cos(wind)*0.38
     model_part(p,'box',ox,hinge_y+oy,hinge_z+oz,1.16,0.28,0.93,0x84988fff,-wind)
     for _,side in ipairs({-1,1}) do
-      model_part(p,'sphere',side*0.43,0.84+oy,0.9,0.24,0.18,0.14,0xf1dc9aff)
-      model_part(p,'box',side*0.43,0.84+oy,0.978,0.06,0.09,0.03,0x263c40ff)
+      local ey=hinge_y+0.29*math.cos(wind)+0.70*math.sin(wind)
+      local ez=hinge_z-0.29*math.sin(wind)+0.70*math.cos(wind)
+      model_part(p,'sphere',side*0.43,ey,ez,0.24,0.18,0.19,0xf1dc9aff)
+      model_part(p,'box',side*0.43,ey,ez+0.10,0.06,0.09,0.035,0x263c40ff)
       for j=0,2 do model_part(p,'cone',side*(0.22+j*0.11),0.49,0.82,0.12,0.14,0.14,0xefdfb4ff) end
     end
     model_feet(c,0x536768ff)
@@ -163,11 +165,12 @@ function creature_draw(c)
     model_part(p,'cone',0,0,0,0.23,0.78,0.23,0x789684ff)
     model_part(p,'sphere',0,0.91+bob,0,0.31,0.42,0.31,0xb5c996ff)
     for i=0,5 do
-      local a=i*math.pi/3 local r=open*0.32
-      model_part(p,'petal',math.cos(a)*r,0.96+bob,math.sin(a)*r,0.75,1.1,0.75,i%2==0 and 0xaaa8d0ff or 0x858faeff,math.sin(a)*open*0.6,math.cos(a)*open*0.6)
+      local a=i*math.pi/3 local r=open*0.44
+      model_part(p,'petal',math.cos(a)*r,0.94+bob,math.sin(a)*r,0.75,1.1,0.75,i%2==0 and 0xaaa8d0ff or 0x858faeff,-math.sin(a)*open,-math.cos(a)*open)
     end
-    model_part(p,'sphere',0,1.18+bob,0.06,0.54,0.49,0.48,0xf0d993ff)
-    model_face(p,'glarebell',expression,0,1.18+bob,0.31,0.43)
+    local core_y=1.24+open*0.18+bob
+    model_part(p,'sphere',0,core_y,0.06,0.54,0.49,0.48,0xf0d993ff)
+    model_face(p,'glarebell',expression,0,core_y,0.31,0.43)
     for _,side in ipairs({-1,1}) do model_part(p,'petal',side*0.07,0.25,0,0.6,0.8,0.35,0x8cab7cff,lean,side*1.1) end
     layer3_billboard(scene,c.x,c.y+1.2,c.z,open*1.35,open*1.35,c.state=='dazzling' and WHITE or 0xb9dcacff,tex.halo,'add')
   else

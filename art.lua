@@ -36,7 +36,7 @@ function art_boot()
   tex.shaft=pixel_texture(32,64,function(x,y)
     local spread=0.35+0.65*y/63
     local edge=math.max(0,1-math.abs(x-15.5)/(15.5*spread))
-    return 255,241,180,math.floor(edge*edge*(0.4+0.6*(1-y/64))*66)
+    return 255,241,180,math.floor(edge*edge*(0.4+0.6*(1-y/64))*150)
   end,'clamp')
   tex.halo=pixel_texture(32,32,function(x,y)
     local d=math.sqrt((x-15.5)^2+(y-15.5)^2)/15.5
