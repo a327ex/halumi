@@ -8,7 +8,7 @@ SPECIES={
 SPAWNS={
   {'cupcap',-3,0,1},{'cupcap',-1,0,0},{'cupcap',-3,0,-3},{'cupcap',0,0,-6},{'cupcap',-17,0,14},
   {'slatejaw',-9.6,3.2,1},
-  {'spoolmite',18,0,20},{'spoolmite',-18,0,16},{'spoolmite',10,0,-29},
+  {'spoolmite',18,0,20},{'spoolmite',-18,0,16},{'spoolmite',10,0,-28.5},
   {'glarebell',-6.8,0,1},{'glarebell',-18,0,13},{'glarebell',11,0,-30},
   {'veilfin',8.9,0,-30.5},
 }

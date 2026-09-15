@@ -1,10 +1,11 @@
 -- A built sanctuary reclaimed by cave rock. Layout is authored in metres.
 function world_boot()
-  world={solids={},hulls={},geo={masonry={},rock={},floor={},trim={}},lamps={
+  world={solids={},hulls={},geo={masonry={},rock={},floor={},trim={},ceiling={}},lamps={
     {0,2.4,23,0xe8bd77ff,6,'sconce'}, {-1.9,2.7,13,0xd4aa70ff,5,'sconce'},
     {-2,7,-2,0xffefd4ff,15,'sun'}, {4,7,-6,0xfff4d8ff,13,'sun'},
     {0,2.8,6,0xcbbfa3ff,12,'bounce'}, {-7,3,-1,0x8bada8ff,10,'bounce'},
     {1,3,-10,0x8daba3ff,11,'bounce'}, {8,4,0,0x9db1a3ff,10,'bounce'},
+    {0,2.5,0,0x819d9dff,9,'bounce'},
     {-11.5,7.5,2,0xc7d4b3ff,6,'bounce'},
     {-6,2.6,17,0xa88055ff,4,'sconce'}, {-19,2.6,20.7,0xb58b57ff,5,'sconce'},
     {8,2.6,20,0x8d8b72ff,4,'sconce'}, {21,2.3,23,0x8fb3b8ff,5,'sconce'},
@@ -17,7 +18,7 @@ function world_boot()
   dressed_wall('entry east far',3,2.5,13.5,1,5,9)
   world_box('entry west doorway header',-3,4.15,17,1.2,1.7,4)
   world_box('entry east doorway header',3,4.15,20,1.2,1.7,4)
-  world_box('entry roof',0,5.4,17,7,0.8,16)
+  world_box('entry roof',0,5.4,17,7,0.8,16,nil,'ceiling')
   world_box('exit boundary',0,2.5,25.3,6,5,0.6)
   arch_z('entry threshold',0,24.3,4.2,3.5)
   arch_z('lake portal',0,9.4,4.5,4.1)
@@ -27,7 +28,7 @@ function world_boot()
   floor_rect('archive corridor',-13,-2.5,15,19,0)
   dressed_wall('archive passage north',-8,2,14.7,10,4,0.6)
   dressed_wall('archive passage south',-8,2,19.3,10,4,0.6)
-  world_box('archive passage roof',-8,4.3,17,10,0.6,5)
+  world_box('archive passage roof',-8,4.3,17,10,0.6,5,nil,'ceiling')
   floor_rect('archive chamber',-24,-13,11,23,0)
   dressed_wall('archive back',-24.3,2.6,17,0.6,5.2,13)
   dressed_wall('archive north',-18.5,2.6,10.7,12,5.2,0.6)
@@ -35,7 +36,7 @@ function world_boot()
   dressed_wall('archive east north',-12.7,2.6,12.8,0.6,5.2,4.4)
   dressed_wall('archive east south',-12.7,2.6,21.2,0.6,5.2,4.4)
   world_box('archive doorway header',-12.7,4.6,17,1,1.2,4)
-  world_box('archive ceiling',-18.5,5.5,17,12,0.6,13)
+  world_box('archive ceiling',-18.5,5.5,17,12,0.6,13,nil,'ceiling')
   for i=1,3 do floor_rect('archive steps',-22.8,-20,11.5+(i-1)*0.55,13.7,0.14*i) end
   rock_intrusion('archive collapsed corner',-23,0,11.9,5.3,4.9,5.1,5)
   rock_intrusion('archive wall breach',-23.7,0,20.3,4.5,4,5,7)
@@ -44,7 +45,7 @@ function world_boot()
   floor_rect('cistern corridor',2.5,13.5,18,22,0)
   dressed_wall('cistern passage north',8,2.1,17.7,10.5,4.2,0.6)
   dressed_wall('cistern passage south',8,2.1,22.3,10.5,4.2,0.6)
-  world_box('cistern passage roof',8,4.5,20,11,0.6,5)
+  world_box('cistern passage roof',8,4.5,20,11,0.6,5,nil,'ceiling')
   floor_rect('cistern chamber',13.5,24,14,26,0)
   dressed_wall('cistern east',24.3,2.7,20,0.6,5.4,13)
   dressed_wall('cistern north',18.8,2.7,13.7,11.5,5.4,0.6)
@@ -52,7 +53,7 @@ function world_boot()
   dressed_wall('cistern west north',13.2,2.7,15.7,0.6,5.4,4)
   dressed_wall('cistern west south',13.2,2.7,24.3,0.6,5.4,4)
   world_box('cistern doorway header',13.2,4.6,20,1,1.6,4)
-  world_box('cistern roof',18.8,5.7,20,11.8,0.6,13)
+  world_box('cistern roof',18.8,5.7,20,11.8,0.6,13,nil,'ceiling')
   arch_z('cistern inner frame',19,16,5,3.8)
   for i=1,3 do floor_rect('cistern dais steps',17,21,14+(i-1)*0.55,15.8,0.13*i) end
   rock_intrusion('cistern small intrusion',23.8,0,15.3,3,4,3.6,9)
@@ -97,19 +98,19 @@ function world_boot()
   -- Original alcove becomes the lower chamber of the northern branch.
   dressed_wall('alcove screen',8.5,2,-9,5,4,1)
   dressed_wall('alcove partition',6,2,-13,1,4,6)
-  world_box('alcove roof',10,4.2,-13,8,0.5,6)
+  world_box('alcove roof',10,4.2,-13,8,0.5,6,nil,'ceiling')
   rock_intrusion('broken lake pier',6.8,0,1.5,2.1,7.5,2.3,39)
   floor_rect('north gallery',10,14,-25,-16,0)
   dressed_wall('gallery west',9.7,2.3,-20.5,0.6,4.6,9)
   dressed_wall('gallery east',14.3,2.3,-20.5,0.6,4.6,9)
-  world_box('gallery roof',12,4.9,-20.5,5.2,0.6,9)
+  world_box('gallery roof',12,4.9,-20.5,5.2,0.6,9,nil,'ceiling')
   arch_z('gallery door',12,-23.6,3,3.5)
   floor_rect('north chamber',4,14,-34,-25,0)
   dressed_wall('north chamber west',3.7,2.7,-29.5,0.6,5.4,10)
   dressed_wall('north chamber east',14.3,2.7,-29.5,0.6,5.4,10)
   dressed_wall('north chamber back',9,2.7,-34.3,11,5.4,0.6)
   dressed_wall('north chamber screen',7,2.7,-24.7,6.6,5.4,0.6)
-  world_box('north chamber roof',9,5.7,-29.5,11,0.6,10)
+  world_box('north chamber roof',9,5.7,-29.5,11,0.6,10,nil,'ceiling')
   rock_intrusion('north chamber intrusion',4.1,0,-32.2,3.5,4.5,4.3,45)
   rock_intrusion('gallery root',10.2,4.6,-20.8,1.5,-2.1,2.4,46)
   -- Deliberate small rubble clusters stay out of the verified walking lanes.

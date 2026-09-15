@@ -13,6 +13,17 @@ function art_boot()
     if (x+math.floor(y/6)*5)%17==0 then n=n-14 end
     return 103+n,111+n,108+n
   end)
+  tex.rock=tex.stone
+  tex.ceiling=pixel_texture(32,32,function(x,y) local n=(x*7+y*11)%9 return 28+n,37+n,39+n end)
+  tex.masonry=pixel_texture(32,32,function(x,y)
+    local n=((x*3+math.floor(y/2)*7)%7-3)*2
+    return 155+n,148+n,125+n
+  end)
+  tex.floor=pixel_texture(32,32,function(x,y)
+    local joint=x==0 or y==0 local n=((x*7+y*3)%9-4)*2
+    if joint then return 66,76,72 end
+    return 141+n,144+n,125+n
+  end)
   tex.water=pixel_texture(32,32,function(x,y)
     local n=((x+math.floor(math.sin(y*0.7)*4))%13<2) and 23 or 0
     return 44+n,102+n,111+n
@@ -33,7 +44,7 @@ in vec2 TexCoord; out vec4 FragColor; uniform sampler2D u_texture;
 void main(){vec4 c=texture(u_texture,TexCoord);c.rgb=floor(c.rgb*31.0+0.5)/31.0;FragColor=c;}
 ]])
   layer3_set_jitter(scene,320,180) layer3_set_affine(scene,0.65)
-  layer3_set_fog(scene,rgba8(29,43,48),15,43)
+  layer3_set_fog(scene,rgba8(75,94,93),28,64)
   layer3_set_sky(scene,rgba8(83,112,117),rgba8(158,174,151),rgba8(29,43,48))
   layer3_set_sun(scene,-0.2,1,-0.1,rgba8(255,241,190),90)
 end

@@ -80,22 +80,37 @@ function rock_intrusion(name,x,y,z,w,h,d,seed,yaw)
     local scale=level==0 and 0.8 or 1
     add(math.cos(a)*w*0.5*r*scale,h*(level==0 and 0 or 0.63),math.sin(a)*d*0.5*r*scale)
   end end
-  add(w*0.12*math.sin(seed),h,d*0.12*math.cos(seed))
+  if h<0 then add(w*0.12*math.sin(seed),h,d*0.12*math.cos(seed))
+  else
+    for i=0,3 do local a=i*math.pi/2+0.3
+      add(math.cos(a)*w*0.24+w*0.08*math.sin(seed),h*(0.9+0.1*math.sin(seed+i)),math.sin(a)*d*0.24)
+    end
+  end
   world_hull(name,ps,'rock')
 end
 function dressed_wall(name,x,y,z,w,h,d)
-  -- Mortared backing and shallow proud courses have matching box colliders.
-  world_box(name,x,y,z,w,h,d)
+  local body=physics3_create_body('static',x,y,z) physics3_add_box(body,'stone',w,h,d)
+  world.solids[#world.solids+1]={name=name,x=x,y=y,z=z,w=w,h=h,d=d,body=body}
+  geo_box(world.geo.masonry,x,y,z,math.max(0.1,w-0.1),h,math.max(0.1,d-0.1))
   local horizontal=w>d local span=horizontal and w or d local count=math.max(1,math.floor(span/1.8))
   local courses=math.max(1,math.floor(h/0.75))
   for row=0,courses-1 do for col=0,count-1 do
     local along=-span/2+(col+0.5)*span/count
     local py=y-h/2+(row+0.5)*h/courses
     local pw=span/count-0.045 local ph=h/courses-0.035
-    -- Draw courses into the same material batch. 3 cm relief stays inside the
-    -- wall's skin; the continuous mortared wall is the collision surface.
-    if horizontal then geo_box(world.geo.masonry,x+along,py,z,pw,ph,d+0.02)
-    else geo_box(world.geo.masonry,x,py,z+along,w+0.02,ph,pw) end
+    -- Only the exposed course faces are needed. Internal top/bottom faces would
+    -- produce bright single-pixel seams under vertex snapping.
+    for _,side in ipairs({-1,1}) do
+      local a,b,c,e,n
+      if horizontal then
+        a={x+along-pw/2,py-ph/2,z+side*d/2} b={x+along+pw/2,py-ph/2,z+side*d/2}
+        c={x+along+pw/2,py+ph/2,z+side*d/2} e={x+along-pw/2,py+ph/2,z+side*d/2} n={0,0,side}
+      else
+        a={x+side*w/2,py-ph/2,z+along-pw/2} b={x+side*w/2,py-ph/2,z+along+pw/2}
+        c={x+side*w/2,py+ph/2,z+along+pw/2} e={x+side*w/2,py+ph/2,z+along-pw/2} n={side,0,0}
+      end
+      geo_triangle(world.geo.masonry,a,b,c,n) geo_triangle(world.geo.masonry,a,c,e,n)
+    end
   end end
 end
 function arch_z(name,x,z,width,height,base)
@@ -107,7 +122,7 @@ function arch_z(name,x,z,width,height,base)
 end
 function geo_finish()
   world.meshes={}
-  for _,material in ipairs({'masonry','rock','floor','trim'}) do
+  for _,material in ipairs({'masonry','rock','floor','trim','ceiling'}) do
     if #world.geo[material]>0 then
       local m=mesh3_create(world.geo[material]) mesh3_set_texture(m,tex[material] or tex.stone)
       world.meshes[#world.meshes+1]={mesh=m,material=material}

@@ -43,6 +43,12 @@ function player_update(dt)
       local scale=math.min(1,CLIMB_SPEED*dt/math.max(n,0.00001))
       dx,dz,dy=dx*scale,dz*scale,rise*scale player.climbing=true break
     elseif into<0 then
+      local n=math.max(0.00001,length2(dx,dz))
+      local step_ground=world_ground(player.x+dx/n*(PLAYER_RADIUS+0.16),player.z+dz/n*(PLAYER_RADIUS+0.16),player.y+0.6)
+      local rise=step_ground and step_ground.point_y+HOVER_HEIGHT-player.y or 99
+      if step_ground and step_ground.normal_y>0.8 and rise>0.035 and rise<=0.23 then
+        dy=rise break
+      end
       local n2=nx*nx+nz*nz
       if n2>0.001 then dx,dz=dx-into*nx/n2,dz-into*nz/n2 else dx,dz=0,0 end
     else dx,dz=0,0 end
