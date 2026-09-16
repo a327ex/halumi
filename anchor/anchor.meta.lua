@@ -54,13 +54,13 @@ function images_dirty() end
 ---@return any
 function web_file_status(path) end
 
---- texture userdata pixel_data_string is a binary string of width*height*4 bytes (RGBA)
----@param width number
----@param height number
----@param pixel_data_string any
+--- pixels are width*height*4 RGBA bytes; filter 'smooth' = linear (default nearest), wrap 'repeat' = tiling
+---@param width integer
+---@param height integer
+---@param pixel_data_string string
 ---@param filter? string
 ---@param wrap? string
----@return any
+---@return lightuserdata
 function texture_create(width, height, pixel_data_string, filter, wrap) end
 
 --- free a texture
@@ -400,10 +400,10 @@ function set_draw_shader(path) end
 ---@return any ...
 function get_draw_shader(...) end
 
---- UNDOCUMENTED (no doc comment in anchor.c yet)
----@param ... any
----@return any ...
-function shader_load_file(...) end
+--- compile an effect (post-process) shader from a file; errors on failure
+---@param path string
+---@return integer
+function shader_load_file(path) end
 
 --- compile an effect (post-process) shader from source; errors on failure; headless returns 1
 ---@param source string
@@ -1404,6 +1404,7 @@ function layer3_create(name, w, h, filter) end
 ---@return any
 function layer3_get_layer(l3) end
 
+--- set a per-fragment point light in slot 1..16; world meters, packed RGBA (alpha ignored), radius 0 disables
 ---@param l3 lightuserdata
 ---@param index integer
 ---@param x number
@@ -1413,6 +1414,7 @@ function layer3_get_layer(l3) end
 ---@param radius number
 function layer3_set_point_light(l3, index, x, y, z, color, radius) end
 
+--- clear only the layer's point lights; directional and ambient lighting are unchanged
 ---@param l3 lightuserdata
 function layer3_clear_lights(l3) end
 
@@ -2156,3 +2158,4 @@ function process_poll(id) end
 --- SIGTERM the process group (posix_spawn used SETSID).
 ---@param id any
 function process_kill(id) end
+

@@ -428,7 +428,7 @@ function layer_apply_shader(lyr, shader)
 end
 
 ---@param lyr Layer
----@param shader lightuserdata
+---@param shader integer
 ---@param name string
 ---@param value number
 function layer_shader_set_float(lyr, shader, name, value)
@@ -436,7 +436,7 @@ function layer_shader_set_float(lyr, shader, name, value)
 end
 
 ---@param lyr Layer
----@param shader lightuserdata
+---@param shader integer
 ---@param name string
 ---@param x number
 ---@param y number
@@ -445,7 +445,7 @@ function layer_shader_set_vec2(lyr, shader, name, x, y)
 end
 
 ---@param lyr Layer
----@param shader lightuserdata
+---@param shader integer
 ---@param name string
 ---@param x number
 ---@param y number
@@ -456,7 +456,7 @@ function layer_shader_set_vec4(lyr, shader, name, x, y, z, w)
 end
 
 ---@param lyr Layer
----@param shader lightuserdata
+---@param shader integer
 ---@param name string
 ---@param value integer
 function layer_shader_set_int(lyr, shader, name, value)
@@ -465,7 +465,7 @@ end
 
 --- Bind an auxiliary sampler for the shader (unit >= 2 survives the frame's draws).
 ---@param lyr Layer
----@param shader lightuserdata
+---@param shader integer
 ---@param name string
 ---@param texture_id integer|lightuserdata
 ---@param unit? integer   default 1
@@ -506,7 +506,7 @@ end
 --- Immediately draw another layer's texture into this one (optionally through a shader).
 ---@param lyr Layer
 ---@param source Layer
----@param shader? lightuserdata
+---@param shader? integer
 function layer_draw_from(lyr, source, shader)
   eng.draw_from(lyr_handle(lyr), lyr_handle(source), shader)
 end
