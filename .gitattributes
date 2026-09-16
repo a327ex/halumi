@@ -1,0 +1,44 @@
+# Line endings (2026-09-16). Git for Windows converts text to CRLF on checkout
+# (core.autocrlf=true, system-wide), so without a policy a fresh clone writes
+# every file CRLF: whole-file phantom diffs, CRLF committed into the replay
+# timeline (which snapshots with autocrlf off), shell tools broken on Linux.
+# Text is stored and checked out LF; text=auto leaves unlisted binaries alone.
+* text=auto eol=lf
+
+# cmd.exe wants CRLF.
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+
+# Shell scripts must be LF: `#!/bin/bash` + CR is fatal on Linux.
+*.sh   text eol=lf
+
+# Binaries: never touch.
+*.exe  binary
+*.dll  binary
+*.lib  binary
+*.a    binary
+*.wasm binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.psd  binary
+*.ase  binary
+*.aseprite binary
+*.ttf  binary
+*.ttc  binary
+*.otf  binary
+*.ogg  binary
+*.mp3  binary
+*.wav  binary
+*.flac binary
+*.mp4  binary
+*.webm binary
+*.zip  binary
+*.apr  binary
+*.glb  binary
+*.gltf binary
+*.fbx  binary
+*.blend binary
